@@ -47,7 +47,15 @@ const statusArr = [
 function ChatsSidebar(props) {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-  const user = useSelector(({ chatApp }) => chatApp.user);
+  const userasd = useSelector(({ auth }) => auth.user);
+  const user = [{
+    id: userasd.id,
+    name: userasd.data.name,
+    avatar: userasd.data.avatar,
+    status: userasd.status,
+    mood: userasd.mood,
+    chatList: [userasd.chatList]
+  }]
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -103,8 +111,8 @@ function ChatsSidebar(props) {
               role="button"
               tabIndex={0}
             >
-              <Avatar src={user.data.avatar} alt={user.data.name} className="w-40 h-40">
-                {!user.data.avatar || user.data.avatar === '' ? user.data.name[0] : ''}
+              <Avatar src={user.avatar} alt={user.name} className="w-40 h-40">
+                {!user.avatar || user.avatar === '' ? user.name : ''}
               </Avatar>
               <div
                 className="absolute right-0 bottom-0 -m-4 z-10 cursor-pointer"

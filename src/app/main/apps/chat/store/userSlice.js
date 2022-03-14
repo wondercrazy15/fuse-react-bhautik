@@ -6,9 +6,20 @@ import axios from 'axios';
 export const getUserData = createAsyncThunk('chatApp/user/getUserData', async (_, { getState }) => {
   // const response = await axios.get('/api/chat/user');
   // const data = await response.data;
+  debugger
   const user = await getState().auth.user;
-  const data = await user;
-  return data;
+  // const data = await user;
+
+  const userData = await {
+    id: user.id,
+    name: user.data.name,
+    avatar: user.data.avatar,
+    status: user.status,
+    mood: user.mood,
+    chatList: [user.chatList]
+  };
+
+  return userData;
 });
 
 export const updateUserData = createAsyncThunk('chatApp/user/updateUserData', async (newData, { dispatch, getState }) => {
