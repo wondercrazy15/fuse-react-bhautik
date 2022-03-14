@@ -9,25 +9,37 @@ export const getChat = createAsyncThunk(
   async ({ contactId, isMobile }, { dispatch, getState }) => {
     debugger
     // const { uid: userId } = getState().auth.user;
-    const { id: userId } = getState().chatApp.user;
+    const { id: userId } = getState().auth.user;
+    const users = getState().auth.users;
 
-    const response = await axios.get('/api/chat/get-chat', {
-      params: {
-        contactId,
-        userId,
-      },
-    });
- 
-    const { chat, userChatList } = await response.data;
+    // const response = await axios.get('/api/chat/get-chat', {
+    //   params: {
+    //     contactId,
+    //     userId,
+    //   },
+    // });
+    // const { chat, userChatList } = await response.data;
+
+    const user = users.find(_user => _user.id === userId);
+
+    const userChat = users.chatList.find(_chat => _chat.contactId === contactId);
+    const chatId = userChat ? userChat.chatId : createNewChat(contactId, userId);
+
+
 
     dispatch(setSelectedContactId(contactId));
-    dispatch(updateUserChatList(userChatList));
+    dispatch(updateUserChatList(user.chatList));
 
     if (isMobile) {
       dispatch(closeMobileChatsSidebar());
     }
 
-    return chat;
+    return [
+      {
+        chat: user.chats.find(_chat => _chat.id === chatId),
+      }
+    ];
+    // return chat;
   }
 );
 

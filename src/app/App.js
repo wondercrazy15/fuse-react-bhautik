@@ -10,7 +10,7 @@ import withAppProviders from './withAppProviders';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import FirebaseService from 'app/services/firebaseService';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { users } from './auth/store/usersSlice';
 
 // import firebaseService from 'app/services/firebaseService';
@@ -29,9 +29,10 @@ axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencod
 const App = () => {
   // debugger
   const dispatch = useDispatch();
+  const usersa = useSelector(({ auth }) => auth.users);
+
 
   const [userAll, setUserAll] = useState([]);
-
   const printUsers = async () => {
     var getusers = await FirebaseService.db.ref('/users/');
     getusers.on('value', (snapshot) => {
@@ -48,16 +49,15 @@ const App = () => {
       setUserAll(newUsers);
     })
   }
-
   useEffect(() => {
     printUsers();
   }, [])
 
-  // console.log(userAll)
-
   if (userAll) {
     dispatch(users(userAll))
   }
+
+
 
   return (
     <Auth>

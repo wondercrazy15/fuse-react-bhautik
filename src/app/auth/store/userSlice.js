@@ -37,13 +37,15 @@ export const createUserSettingsFirebase = (authUser) => async (dispatch, getStat
    */
   const user = _.merge({}, guestUser, {
     uid: authUser.uid,
+    id: authUser.uid,
     from: 'firebase',
     role: ['admin'],
     data: {
       displayName: authUser.displayName,
       email: authUser.email,
-      photoURL: 'assets/images/avatars/Velazquez.jpg', 
-      name: authUser.displayName, 
+      photoURL: 'assets/images/avatars/Velazquez.jpg',
+      avatar: 'assets/images/avatars/Velazquez.jpg',
+      name: authUser.displayName,
       settings: { ...fuseDefaultSettings },
     },
     status: 'online',
@@ -65,54 +67,58 @@ export const createUserSettingsFirebase = (authUser) => async (dispatch, getStat
         lastMessageTime: '2021-03-18T12:30:18.931Z'
       }
     ],
-    contacts: [
+    chats: [
       {
-        starred: [
-          '5725a680ae1ae9a3c960d487',
-          '5725a6801146cce777df2a08',
-          '5725a680bbcec3cc32a8488a',
-          '5725a680bc670af746c435e2',
-          '5725a68009e20d0a9e9acf2a'
-        ],
-        frequentContacts: [
-          '5725a6809fdd915739187ed5',
-          '5725a68031fdbb1db2c1af47',
-          '5725a680606588342058356d',
-          '5725a680e7eb988a58ddf303',
-          '5725a6806acf030f9341e925',
-          '5725a68034cb3968e1f79eac',
-          '5725a6801146cce777df2a08',
-          '5725a680653c265f5c79b5a9'
-        ],
-        groups: [
+        id: '1725a680b3249760ea21de52',
+        dialog: [
           {
-            id: '5725a6802d10e277a0f35739',
-            name: 'Friends',
-            contactIds: ['5725a680bbcec3cc32a8488a', '5725a680e87cb319bd9bd673', '5725a6802d10e277a0f35775']
+            who: '5725a680b3249760ea21de52',
+            message: 'Quickly come to the meeting room 1B, we have a big server issue',
+            time: '2021-03-22T08:54:28.299Z'
           },
           {
-            id: '5725a6802d10e277a0f35749',
-            name: 'Clients',
-            contactIds: [
-              '5725a680cd7efa56a45aea5d',
-              '5725a68018c663044be49cbf',
-              '5725a6809413bf8a0a5272b1',
-              '5725a6803d87f1b77e17b62b'
-            ]
+            who: '5725a6802d10e277a0f35724',
+            message: 'I’m having breakfast right now, can’t you wait for 10 minutes?',
+            time: '2021-03-22T08:55:28.299Z'
           },
           {
-            id: '5725a6802d10e277a0f35329',
-            name: 'Recent Workers',
-            contactIds: [
-              '5725a680bbcec3cc32a8488a',
-              '5725a680653c265f5c79b5a9',
-              '5725a6808a178bfd034d6ecf',
-              '5725a6801146cce777df2a08'
-            ]
+            who: '5725a6802d10e277a0f35724',
+            message: 'I’m having breakfast right now, can’t you wait for 10 minutes?',
+            time: '2021-03-22T08:56:28.299Z'
+          }
+        ]
+      },
+      {
+        id: '2725a680b8d240c011dd2243',
+        dialog: [
+          {
+            who: '5725a680606588342058356d',
+            message: 'Quickly come to the meeting room 1B, we have a big server issue',
+            time: '2021-04-22T01:00:00.299Z'
+          },
+          {
+            who: '5725a6802d10e277a0f35724',
+            message: 'I’m having breakfast right now, can’t you wait for 10 minutes?',
+            time: '2021-04-22T01:05:00.299Z'
+          },
+          {
+            who: '5725a680606588342058356d',
+            message: 'We are losing money! Quick!',
+            time: '2021-04-22T01:10:00.299Z'
+          }
+        ]
+      },
+      {
+        id: '3725a6809413bf8a0a5272b4',
+        dialog: [
+          {
+            who: '5725a68009e20d0a9e9acf2a',
+            message: 'Quickly come to the meeting room 1B, we have a big server issue',
+            time: '2021-04-22T02:10:00.299Z'
           }
         ]
       }
-    ]
+    ],
   });
   currentUser.updateProfile(user.data);
 
