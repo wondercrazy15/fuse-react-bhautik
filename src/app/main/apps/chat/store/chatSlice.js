@@ -22,7 +22,11 @@ export const getChat = createAsyncThunk(
 
     const user = users.find(_user => _user.id === userId);
 
-    const userChat = users.chatList.find(_chat => _chat.contactId === contactId);
+    const chatList = users.map((item, index) => {
+      return item.chatList
+    })
+
+    const userChat = chatList.find(_chat => _chat.contactId === contactId);
     const chatId = userChat ? userChat.chatId : createNewChat(contactId, userId);
 
 
@@ -34,11 +38,8 @@ export const getChat = createAsyncThunk(
       dispatch(closeMobileChatsSidebar());
     }
 
-    return [
-      {
-        chat: user.chats.find(_chat => _chat.id === chatId),
-      }
-    ];
+    return user.chats.find(_chat => _chat.id === chatId)
+
     // return chat;
   }
 );
